@@ -1,4 +1,5 @@
+DATABASE_FOLDER=Database
 OUTSIDE_INFO=Outside_info
 
-mkdir -p $OUTSIDE_INFO
-sh scripts/0_fetch_metanetx_data.py --output-folder $OUTSIDE_INFO
+mkdir -p ${DATABASE_FOLDER}/${OUTSIDE_INFO}
+#python3 scripts/0_fetch_metanetx_data.py --output-folder $OUTSIDE_INFO
