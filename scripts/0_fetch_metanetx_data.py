@@ -1,4 +1,11 @@
-OUTSIDE_INFO=Outside_info
+from argparse import ArgumentParser
 
-mkdir -p $OUTSIDE_INFO
-sh fetch_metanetx_data.py --output-folder $OUTSIDE_INFO
+if __name__ == '__main__':
+
+    parser = ArgumentParser(description="Fetches up-to-date MetaNetX data.")
+    parser.add_argument("--output-folder", type=str, help="Folder to contain the downloaded MetaNetX info.")
+
+    args = parser.parse_args()
+    output_folder = args.output_folder
+
+    #TODO.
