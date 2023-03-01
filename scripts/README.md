@@ -1,3 +1,5 @@
 0_fetch_metanetx_data.py: downloads raw information from MetaNetX and saves it to repo/Database/Outside_info as chem_xref.tsv and reac_xref.tsv.
 
 1_parse_out_identifier_map.py: parses out information downloaded from MetaNetX so that it can be more easily read.  The information is written out to repo/Database/Parsed_info as PARSED_metabolite_mapping.out and PARSED_reaction_mapping.out.  These link identifiers from one database to another using metanetx.  Intermediate files only containing metanetx identifiers to other database identifiers are written out in INTERMEDIATE_metanet_rxn_mapping.out and INTERMEDIATE_metanet_met_mapping.out; these files are meant to be used for debugging.
+
+2_create_individual_db_map.py: parses information from PARSED_metabolite_mapping.out and PARSED_reaction_mapping.out to get the mapping, per database, for identifier to other identifiers whether in this database or elsewhere.
