@@ -96,6 +96,14 @@ def write_out_met_info(output, value_to_metanet, metanet_to_values, prefix_to_na
             writer.write("\t".join([value, "metanetx.chemical:" + metanet_id]) + "\n")
 
 
+def write_out_metanet(metanet_id_to_values, output_file):
+
+    with open(output_file, "w") as writer:
+        for metanet_id, values in metanet_id_to_values.items():
+            for value in values:
+                writer.write(metanet_id + "\t" + value + "\n")
+
+
 if __name__ == "__main__":
 
     parser = ArgumentParser(description="Parses out and writes out reaction and metabolite identifiers maps from MetaNetX.")
@@ -109,6 +117,10 @@ if __name__ == "__main__":
     # The output from 0_fetch_metanetx_data.py
     metanetx_rxn_output = metanetx_folder + "/reac_xref.tsv"
     metanetx_met_output = metanetx_folder + "/chem_xref.tsv"
+
+    rxn_metanet_to_others_output = parsed_info_folder + "/INTERMEDIATE_metanet_rxn_mapping.out"
+    met_metanet_to_others_output = parsed_info_folder + "/INTERMEDIATE_metanet_met_mapping.out"
+
     rxn_mapping_output = parsed_info_folder + "/PARSED_reaction_mapping.out"
     met_mapping_output = parsed_info_folder + "/PARSED_metabolite_mapping.out"
 
@@ -123,9 +135,13 @@ if __name__ == "__main__":
                 "biggM": "bigg.metabolite", \
                     "seedM": "seed.compound"}
 
+    # Get the metanet ID to other mappings.  Intermediate files generated for debugging.
     rxn_metanet_to_values, rxn_value_to_metanet = get_metanet_to_values(metanetx_rxn_output)
     met_metanet_to_values, met_value_to_metanet = get_metanet_to_values(metanetx_met_output)
+    write_out_metanet(rxn_metanet_to_values, rxn_metanet_to_others_output)
+    write_out_metanet(met_metanet_to_values, met_metanet_to_others_output)
 
+    # Get the identifiers linked to others via metanet ID.
     write_out_rxn_info(rxn_mapping_output, rxn_value_to_metanet, rxn_metanet_to_values, \
         rxn_prefix_to_name_identifiers_dot_org)
     write_out_met_info(met_mapping_output, met_value_to_metanet, met_metanet_to_values, \
