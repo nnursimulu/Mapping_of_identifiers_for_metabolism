@@ -18,3 +18,9 @@ def read_db_to_other_identifiers(filename):
                 db_to_id1_to_id2[db][id1] = set()
             db_to_id1_to_id2[db][id1].add(id2)
     return db_to_id1_to_id2
+
+
+def read_default_db_type_rxn_to_met():
+    """Return default mapping from reaction database to metabolite database."""
+
+    return {'biggR': ['biggM'], 'seedR': ['seedM'], 'keggR': ['keggC', 'keggG']}

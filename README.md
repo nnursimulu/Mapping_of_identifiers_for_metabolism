@@ -4,7 +4,8 @@ This set of scripts is meant to download and create mapping files for reaction a
 
 ## Dependencies:
 The following are required to use these scripts:
-* python3 installation
+* python3 installation.
+* configparser module within python3.
 * wget in shell.
 
 ## Usage:
