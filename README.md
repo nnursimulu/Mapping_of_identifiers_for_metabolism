@@ -1,5 +1,7 @@
 # Mapping of identifiers for metabolism
 
+Author: Nirvana Nursimulu
+
 This set of scripts is meant to download and create mapping files for reaction and metabolite identifiers from one database to another.  Currently, the goal is to support KEGG, BiGG and ModelSEED identifiers.  The information is based in large part from the MetaNetX database.  This set of script was originally created for use by members of Dr Parkinson's lab. Suggestions for improvement are welcome.
 
 ## Dependencies:
