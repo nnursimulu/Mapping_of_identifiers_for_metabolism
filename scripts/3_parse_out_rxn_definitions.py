@@ -3,6 +3,19 @@
 from argparse import ArgumentParser
 import utils, subprocess
 
+def parse_out_bigg_rxn(bigg_initial_download, bigg_output_parsed):
+
+    with open(bigg_initial_download) as reader:
+        with open(bigg_output_parsed, "w") as writer:
+            for line in reader:
+                if line.strip() == "":
+                    continue
+                split = line.split("\t")
+                bigg_id = split[0]
+                rxn_formula = split[2]
+                writer.write(bigg_id + "\t" + rxn_formula + "\n")
+
+
 if __name__ == '__main__':
 
     parser = ArgumentParser(description="Parse out reaction definitions for KEGG and BiGG.")
@@ -18,10 +31,12 @@ if __name__ == '__main__':
 
     # For BiGG, first download the file with the information.
     bigg_initial_download = output_folder + "/bigg_models_reactions.txt"
+    bigg_output_parsed = parsed_info + "/PARSED_BiGG_rxn_formula.out"
     url_bigg = "http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt"
     try:
         subprocess.call(["wget", url_bigg, "-O", bigg_initial_download])
     except Exception:
         print ("Error: could not download from http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt for some reason.")
     
-    # TODO: for BiGG, parse out the reaction definition.
+    # For BiGG, parse out the reaction definition for each reaction.
+    parse_out_bigg_rxn(bigg_initial_download, bigg_output_parsed)
