@@ -14,6 +14,8 @@ def parse_out_bigg_rxn(bigg_initial_download, bigg_output_parsed):
                     continue
                 split = line.split("\t")
                 bigg_id = split[0]
+                if bigg_id == "bigg_id":
+                    continue
                 rxn_formula = split[2]
                 writer.write(bigg_id + "\t" + rxn_formula + "\n")
 
