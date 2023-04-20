@@ -125,6 +125,26 @@ def write_out_kegg_information(kegg_output_file, kegg_rxn_to_eqn, missing_kegg_r
             writer.write(rxn + "\t" + eqn + "\n")
 
 
+def parse_out_seed_rxn(seed_initial_download, seed_output_parsed):
+
+    with open(seed_initial_download) as reader:
+        with open(seed_output_parsed, "w") as writer:
+            writer.write("# The third column gives the reaction directionality according to SEED" + \
+            "--computed via Gibbs free energy.\n")
+            writer.write("# >: forward, <: reverse, =: reversible, ?: undefined\n\n")
+
+            for i, line in enumerate(reader):
+                line = line.strip()
+                if (i == 0) or (line == ""):
+                    continue
+                split = line.split("\t")
+                rxn_id, equation, reversibility = split[0], split[6], split[8]
+                equation = equation.replace("(", " ")
+                equation = equation.replace(")", " ")
+                info = [rxn_id, equation, reversibility]
+                writer.write("\t".join(info) + "\n")
+
+
 if __name__ == '__main__':
 
     parser = ArgumentParser(description="Parse out reaction definitions for KEGG and BiGG.")
@@ -147,6 +167,7 @@ if __name__ == '__main__':
     kegg_rxn_to_eqn = format_to_get_only_kegg_rxn_eqn(kegg_reactions_to_downloaded_info)
     write_out_kegg_information(kegg_output_file, kegg_rxn_to_eqn, missing_kegg_reactions, unable_to_parse_kegg_reactions)
 
+
     # For BiGG, first download the file with the information.
     bigg_initial_download = output_folder + "/bigg_models_reactions.txt"
     bigg_output_parsed = parsed_info + "/PARSED_BiGG_rxn_formula.out"
@@ -154,6 +175,17 @@ if __name__ == '__main__':
     try:
         subprocess.call(["wget", url_bigg, "-O", bigg_initial_download])
     except Exception:
-        print ("Error: could not download from http://bigg.ucsd.edu/static/namespace/bigg_models_reactions.txt for some reason.")
+        print ("Error: could not download from " + url_bigg + " for some reason.")
     # Then, parse out the reaction definition for each reaction.
     parse_out_bigg_rxn(bigg_initial_download, bigg_output_parsed)
+
+
+    # For SEED, first download the file with the information.
+    seed_initial_download = output_folder + "/seed_models_reactions.tsv"
+    seed_output_parsed = parsed_info + "/PARSED_SEED_rxn_formula.out"
+    url_seed = "https://raw.githubusercontent.com/ModelSEED/ModelSEEDDatabase/master/Biochemistry/reactions.tsv"
+    try:
+        subprocess.call(["wget", url_seed, "-O", seed_initial_download])
+    except Exception:
+        print ("Error: could not download from " + url_seed + " for some reason.")
+    parse_out_seed_rxn(seed_initial_download, seed_output_parsed)
