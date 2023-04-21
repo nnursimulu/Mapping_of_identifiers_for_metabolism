@@ -15,9 +15,7 @@ The following are required to use these scripts:
 1. Clone this repository.
 2. Run ``sh main.sh``.  This will create a Database folder and run python scripts in the Scripts folder.
 
-Below is a detailed breakdown of what scripts in the Scripts folder do.
-
-### Detailed breakdown of scripts
+To get a detailed breakdown of what each script does, consult the README in the Scripts directory.
 
 ## Expected output:
 Once commands in ``main.sh`` have been run, a Database folder will be created in this directory.  Expect the following sub-folders:
@@ -38,7 +36,7 @@ Below is a detailed breakdown of what each file in each subdirectory contains.
 ``Parsed_info`` contains parsed information from Outside_info for easy programmatic access by scripts in this repository.
 * Reaction equations are parsed out (or downloaded in the case of KEGG) are written out to files of the format ``PARSED_*_rxn_formula.out``.
 * The ``INTERMEDIATE_*`` files are purely used by scripts in this repository, and get associations from MetaNetX IDs (used as reference) to other database identifiers.
-* ``PARSED_metabolite_mapping.out`` and ``PARSED_reaction_mapping.out``contain mappings from one identifier to another, made via MetaNetX identifiers.  These are not meant to be the final output of the scripts but can be used at the discretion of users.
+* ``PARSED_metabolite_mapping.out`` and ``PARSED_reaction_mapping.out``contain mappings from one identifier to another, made via MetaNetX identifiers.  **These are not meant to be the final output of the scripts but can be used at the discretion of users.**
 
 ``Parsed_split_met`` contains mapping files for metabolite identifiers from one database to another.
 * ``MAP_biggM.out``, ``MAP_keggC.out``, ``MAP_keggG.out`` and ``MAP_seedM.out`` have mappings from BiGG, the KEGG compound, the KEGG Glycan and the modelSEED databases respectively.  **These are meant to be output for users.**
