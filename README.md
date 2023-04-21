@@ -16,7 +16,7 @@ The following are required to use these scripts:
 2. Run ``sh main.sh``.  This will create a Database folder and run python scripts in the Scripts folder.
 
 ## Expected output:
-Once main.sh has been run, a Database folder will be created in this directory.  Expect the following sub-folders:
+Once instructions in ``main.sh`` have been run, a Database folder will be created in this directory.  Expect the following sub-folders:
 1. ``Outside_info``: contains various databases downloaded
 2. ``Parsed_info``: parsed information from Outside_info for easy programmatic access
 3. ``Parsed_split_met``: mapping files for metabolite identifiers from one database to another.
