@@ -6,13 +6,26 @@ This set of scripts is meant to download and create mapping files for reaction a
 
 ## Dependencies:
 The following are required to use these scripts:
+* a stable internet connection
 * python3 installation.
 * configparser module within python3.
 * wget in shell.
 
 ## Usage:
 1. Clone this repository.
-2. Run main.sh.  This will create a Database folder.
+2. Run main.sh.  This will create a Database folder and run python scripts in the Scripts folder.
 
-### Note:
-As scripts in this repository are being updated, certain scripts may not need to be re-run, for example, the one responsible for downloading MetaNetX.  I leave it up to the user's discretion to comment out relevant lines.
+## Expected output:
+Once main.sh has been run, a Database folder will be created in this directory.  Expect the following sub-folders:
+1. Outside_info: contains various databases downloaded
+2. Parsed_info: parsed information from Outside_info for easy programmatic access
+3. Parsed``_split``_met: mapping files for metabolite identifiers from one database to another.
+4. Parsed``_split``_rxn: mapping files for reaction identifiers from one database to another, as well as equivalencies between reaction equation.
+
+Here is a detailed breakdown of what each file in each subdirectory contains.
+
+### Detailed breakdown
+
+## Caution:
+1. As scripts in this repository are being updated, certain scripts may not need to be re-run, for example, the one responsible for downloading MetaNetX.  I leave it up to the user's discretion to comment out relevant lines.
+2. When comparing reaction formulae from one database to another, the actual stoichiometries of metabolite participants are not considered.  Similarly, compartment information is not taken into consideration--this is particularly relevant for modelSEED and BiGG reactions which contain compartment information. 
