@@ -1,4 +1,4 @@
-###Detailed breakdown of scripts
+### Detailed breakdown of scripts
 
 ``0_fetch_metanetx_data.py``: downloads raw information from MetaNetX, BiGG and SEED and saves to ``repo/Database/Outside_info``.
 
