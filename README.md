@@ -54,7 +54,7 @@ Assume metabolites A, B, C and D are called ``A_1``, ``B_1``, ``C_1`` and ``D_1`
 4. ``C_2 + D_2 -> A_2``: Reaction are considered to be likely equivalent and to operate in the reverse direction. Same can be said for ``C_2 -> A_2 + B_2``.
 5. ``A_2 + B_2 + E_2 -> C_2``: Some kind of conflicting information is found (as the reaction in database 1 is not strictly a subset of this reaction, or vice-versa). This needs to be resolved by the user.
 
-In some cases, a reaction equation may be absent, perhaps due to discrepancies in external database update.  These will be reported to be as such to be further resolved by users.
+In some cases, a reaction equation may not be available, perhaps due to discrepancies in external database update.  These will be reported to be as such to be further resolved by users.
 
 ## Caution
 1. As scripts in this repository are being updated, certain scripts may not need to be re-run, for example, the one responsible for downloading MetaNetX.  I leave it up to the user's discretion to comment out relevant lines.
