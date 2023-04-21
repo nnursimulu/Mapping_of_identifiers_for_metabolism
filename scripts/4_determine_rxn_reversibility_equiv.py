@@ -129,6 +129,13 @@ def match_up_rxn_formulae(db1_rxn_to_formula, db2_rxn_to_formula, db1_rxn_db_nam
     # Now, for each reaction identifier from one database to the other, compare the formulae.
     for rxn_1, rxn_2_set in rxn_db_id1_to_id2.items():
         rxn_1 = rxn_1.split("#")[0] # This is for those special reactions with the "#" only relevant for metanetx.
+        if rxn_1 not in db1_rxn_to_formula:
+            for rxn_2 in rxn_2_set:
+                if not rxn_2.startswith(db2_rxn_db_name):
+                    continue
+                rxn_db1_to_db2_match[rxn_1 + "!" + rxn_2] = "Could not compare"
+            continue
+
         formula_1 = db1_rxn_to_formula[rxn_1]
         for rxn_2 in rxn_2_set:
             if not rxn_2.startswith(db2_rxn_db_name):
@@ -183,7 +190,7 @@ if __name__ == '__main__':
     parser = ArgumentParser(description="Determines reaction reversibility equivalencies.")
     parser.add_argument("--parsed-info", type=str, help="Folder that contains the parsed info from MetaNetX.")
     parser.add_argument("--parsed-split-rxn-info", type=str, \
-        help="Folder that contains the parsed and formattedinformation specific to reactions.")
+        help="Folder that contains the parsed and formatted information specific to reactions.")
 
     args = parser.parse_args()
     parsed_info_folder = args.parsed_info
@@ -192,10 +199,13 @@ if __name__ == '__main__':
     rxn_mapping_file = parsed_info_folder + "/PARSED_reaction_mapping.out"
     met_mapping_file = parsed_info_folder + "/PARSED_metabolite_mapping.out"
     output_kegg_bigg_equiv = parsed_split_rxn_info + "/COMPUTED_kegg_bigg_equiv.out"
+    output_kegg_seed_equiv = parsed_split_rxn_info + "/COMPUTED_kegg_seed_equiv.out"
+    output_bigg_seed_equiv = parsed_split_rxn_info + "/COMPUTED_bigg_seed_equiv.out"
 
-    #TODO: expand to SEED reaction definitions
+    # For now, reading BiGG, KEGG and SEED reaction definitions.
     bigg_rxn_def_file = parsed_info_folder + "/PARSED_BiGG_rxn_formula.out"
     kegg_rxn_def_file = parsed_info_folder + "/PARSED_KEGG_rxn_formula.out"
+    seed_rxn_def_file = parsed_info_folder + "/PARSED_SEED_rxn_formula.out"
 
     # 0a. Parse mapping of reaction and metabolite from one database to another.
     rxn_db_to_id1_to_id2 = utils.read_db_to_other_identifiers(rxn_mapping_file)
@@ -207,6 +217,7 @@ if __name__ == '__main__':
     # 1. Load reaction definitions.
     bigg_rxn_to_formula = utils.read_rxn_formula(bigg_rxn_def_file, "BiGG")
     kegg_rxn_to_formula = utils.read_rxn_formula(kegg_rxn_def_file, "KEGG")
+    seed_rxn_to_formula = utils.read_rxn_formula(seed_rxn_def_file, "SEED")
 
     # 2. Find reaction equivalencies.
     # biggR is the database name for BiGG.
@@ -215,6 +226,14 @@ if __name__ == '__main__':
     kegg_to_bigg_equiv = match_up_rxn_formulae(bigg_rxn_to_formula, kegg_rxn_to_formula,\
         "biggR", "kegg.reaction", ["kegg.compound", "kegg.glycan"], \
             db_type_rxn_to_met, rxn_db_to_id1_to_id2, met_db_to_id1_to_id2)
+    kegg_to_seed_equiv = match_up_rxn_formulae(seed_rxn_to_formula, kegg_rxn_to_formula,\
+        "seedR", "kegg.reaction", ["kegg.compound", "kegg.glycan"], \
+            db_type_rxn_to_met, rxn_db_to_id1_to_id2, met_db_to_id1_to_id2)
+    bigg_to_seed_equiv = match_up_rxn_formulae(seed_rxn_to_formula, bigg_rxn_to_formula,\
+        "seedR", "bigg.reaction", ["bigg.metabolite"], \
+            db_type_rxn_to_met, rxn_db_to_id1_to_id2, met_db_to_id1_to_id2)
 
     # 3. Write out results of comparing reactions.
     write_out_equiv_conclusions(output_kegg_bigg_equiv, kegg_to_bigg_equiv)
+    write_out_equiv_conclusions(output_kegg_seed_equiv, kegg_to_seed_equiv)
+    write_out_equiv_conclusions(output_bigg_seed_equiv, bigg_to_seed_equiv)

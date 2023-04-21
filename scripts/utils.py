@@ -24,6 +24,8 @@ def get_cpds_only(eqn_string, type_of_db=None):
         if type_of_db == "BiGG":
             elem = elem.split("_")[:-1]
             elem = "_".join(elem)
+        if type_of_db == "SEED":
+            elem = elem.split("[")[0]
         cpd_elems.add(elem)
     return cpd_elems
 
