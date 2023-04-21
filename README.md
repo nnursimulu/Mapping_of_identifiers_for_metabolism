@@ -46,13 +46,13 @@ Below is a detailed breakdown of what each file in each subdirectory contains.
 * As well, you have equivalencies between reaction equation from one database to another in ``COMPUTED_bigg_seed_equiv.out``, ``COMPUTED_kegg_bigg_equiv.out`` and ``COMPUTED_kegg_seed_equiv.out``.  These files tell you whether the equation in one database, when written using another database's metabolite identifiers, proceeds in the same direction in this other database.  **These are meant to be output for users.**
 
 ### Interpretation of computed reaction direction equivalences
-Assume metabolites A, B, C and D are called A_1, B_1, C_1 and D_1 in one database (database 1), and A_2, B_2, C_2 and D_2 in another (database 2).  Suppose database 1 has a reaction of the form A_1 + B_1 -> C_1 + D_1.  This reaction is deemed by MetaNetX to have an equivalent reaction in database 2.  However, how can we tell that the reactions in the databases proceed in the same direction?  Here are possibly scenarios considered by the scripts in this directory, in particular, the forms that the equivalent reaction in database 2 may adopt.  **Note that neither stoichiometric nor compartment information are considered.**
+Assume metabolites A, B, C and D are called ``A_1``, ``B_1``, ``C_1`` and ``D_1`` in one database (database 1), and ``A_2``, ``B_2``, ``C_2`` and ``D_2`` in another (database 2).  Suppose database 1 has a reaction of the form ``A_1 + B_1 -> C_1 + D_1``.  This reaction is deemed by MetaNetX to have an equivalent reaction in database 2.  However, how can we tell that the reactions in the databases proceed in the same direction?  Here are possibly scenarios considered by the scripts in this directory, in particular, the forms that the equivalent reaction in database 2 may adopt.  **Note that neither stoichiometric nor compartment information are considered.**
 
-1. A_2 + B_2 -> C_2 + D_2: Reaction is considered to be equivalent and to operate in the same direction.
-2. C_2 + D_2 -> A_2 + B_2: Reaction is considered to be equivalent and to operate in the reverse direction.
-3. A_2 -> C_2 + D_2: Reaction is considered to be likely equivalent and to operate in the same direction.  Same can be said for ``A_2 + B_2 -> C_2``.
-4. C_2 + D_2 -> A_2: Reaction are considered to be likely equivalent and to operate in the reverse direction. Same can be said for ``C_2 -> A_2 + B_2``.
-5. A_2 + B_2 + E_2 -> C_2: Some kind of conflicting information is found (as the reaction in database 1 is not strictly a subset of this reaction, or vice-versa). This needs to be resolved by the user.
+1. ``A_2 + B_2 -> C_2 + D_2``: Reaction is considered to be equivalent and to operate in the same direction.
+2. ``C_2 + D_2 -> A_2 + B_2``: Reaction is considered to be equivalent and to operate in the reverse direction.
+3. ``A_2 -> C_2 + D_2``: Reaction is considered to be likely equivalent and to operate in the same direction.  Same can be said for ``A_2 + B_2 -> C_2``.
+4. ``C_2 + D_2 -> A_2``: Reaction are considered to be likely equivalent and to operate in the reverse direction. Same can be said for ``C_2 -> A_2 + B_2``.
+5. ``A_2 + B_2 + E_2 -> C_2``: Some kind of conflicting information is found (as the reaction in database 1 is not strictly a subset of this reaction, or vice-versa). This needs to be resolved by the user.
 
 In some cases, a reaction equation may be absent, perhaps due to discrepancies in external database update.  These will be reported to be as such to be further resolved by users.
 
