@@ -13,14 +13,14 @@ The following are required to use these scripts:
 
 ## Usage:
 1. Clone this repository.
-2. Run main.sh.  This will create a Database folder and run python scripts in the Scripts folder.
+2. Run ``sh main.sh``.  This will create a Database folder and run python scripts in the Scripts folder.
 
 ## Expected output:
 Once main.sh has been run, a Database folder will be created in this directory.  Expect the following sub-folders:
-1. Outside_info: contains various databases downloaded
-2. Parsed_info: parsed information from Outside_info for easy programmatic access
-3. Parsed``_split``_met: mapping files for metabolite identifiers from one database to another.
-4. Parsed``_split``_rxn: mapping files for reaction identifiers from one database to another, as well as equivalencies between reaction equation.
+1. ``Outside_info``: contains various databases downloaded
+2. ``Parsed_info``: parsed information from Outside_info for easy programmatic access
+3. ``Parsed_split_met``: mapping files for metabolite identifiers from one database to another.
+4. ``Parsed_split_rxn``: mapping files for reaction identifiers from one database to another, as well as equivalencies between reaction equation.
 
 Here is a detailed breakdown of what each file in each subdirectory contains.
 
